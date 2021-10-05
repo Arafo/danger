@@ -12,6 +12,13 @@ module Danger
         @username = environment["DANGER_BITBUCKETSERVER_USERNAME"]
         @password = environment["DANGER_BITBUCKETSERVER_PASSWORD"]
         self.host = environment["DANGER_BITBUCKETSERVER_HOST"]
+
+        puts "*** DEBUG ****"
+        puts environment["DANGER_BITBUCKETSERVER_USERNAME"]
+        puts environment["DANGER_BITBUCKETSERVER_PASSWORD"]
+        puts environment["DANGER_BITBUCKETSERVER_HOST"]
+        puts "*** DEBUG ****"
+
         self.verify_ssl = environment["DANGER_BITBUCKETSERVER_VERIFY_SSL"] == "false" ? false : true
         if self.host && !(self.host.include? "http://") && !(self.host.include? "https://")
           self.host = "https://" + self.host
@@ -19,6 +26,14 @@ module Danger
         self.key = slug
         self.project = project
         self.pr_api_endpoint = "#{host}/rest/api/1.0/projects/#{project}/repos/#{slug}/pull-requests/#{pull_request_id}"
+
+        puts "*** DEBUG ****"
+        puts host
+        puts project
+        puts slug
+        puts pull_request_id
+        puts self.pr_api_endpoint
+        puts "*** DEBUG ****"
       end
 
       def inspect
