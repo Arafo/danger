@@ -74,6 +74,7 @@ module Danger
     end
 
     def ensure_commitish_exists!(commitish)
+      puts "Calling ensure_commitish_exists: commitish ${commitish}"
       return ensure_commitish_exists_on_branch!(commitish, commitish) if commit_is_ref?(commitish)
       return if commit_exists?(commitish)
 
@@ -102,10 +103,12 @@ module Danger
     private
 
     def git_in_depth_fetch
+      puts "Calling git_in_depth_fetch"
       exec("fetch --depth 1000000")
     end
 
     def git_fetch_branch_to_depth(branch, depth)
+      puts "Calling git_fetch_branch_to_depth: depth ${depth}, branch: ${branch}"
       exec("fetch --depth=#{depth} --prune origin +refs/heads/#{branch}:refs/remotes/origin/#{branch}")
     end
 
@@ -130,6 +133,7 @@ module Danger
       return possible_merge_base if possible_merge_base
 
       possible_merge_base = find_merge_base_with_incremental_fetch(repo, from, to)
+      puts possible_merge_base
       return possible_merge_base if possible_merge_base
 
       git_in_depth_fetch
